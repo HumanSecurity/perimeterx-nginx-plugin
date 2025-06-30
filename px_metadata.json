@@ -1,7 +1,7 @@
 {
-    "module_name" : "NGINX Module",
-    "version": "7.3.4",
-    "spec_version" : "1.0.0",
+    "module_name": "NGINX Module",
+    "version": "7.3.5",
+    "spec_version": "1.0.0",
     "supported_features": [
         "advanced_blocking_response",
         "block_activity",
