@@ -2,7 +2,7 @@
 
 # [PerimeterX](http://www.perimeterx.com) NGINX Lua Plugin
 
-> Latest stable version: [v7.3.4](https://luarocks.org/modules/bendpx/perimeterx-nginx-plugin/7.3.4-1)
+> Latest stable version: [v7.3.5](https://luarocks.org/modules/bendpx/perimeterx-nginx-plugin/7.3.5-1)
 
 ## [Introduction](#introduction)
 
@@ -1429,6 +1429,7 @@ PerimeterX processes URI paths with general- and sub-delimiters according to RFC
 
 PerimeterX Nginx Lua Enforcer repository contains Dockerfile used to create a test docker image.
 In order to build an image, the following files must be present in the project's "example" directory:
+
 - examples/pxconfig.lua - Enforcer configuration (`px_appId`, `cookie_secret` and `auth_token` parameters are required and must be set).
 - examples/nginx.conf - Nginx configuration
 - examples/creds.json - Credential Intelligence configuration (optional)
