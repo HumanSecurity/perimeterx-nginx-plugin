@@ -64,6 +64,9 @@ function M.load(px_config)
     --_M.Whitelist['ua_sub'] = {'Inspectlet', 'GoogleCloudMonitoring'}
     _M.Whitelist['ua_sub'] = px_config.whitelist_ua_sub and px_config.whitelist_ua_sub or {}
 
+    -- filter by host name
+    _M.Whitelist['hosts'] = px_config.whitelist_hosts and px_config.whitelist_hosts or {}
+
     -- Escape Lua magic chars in a string
     local function escape_magic_chars(pattern)
         local magic_chars = { '%', '(',  ')' , '.',  '+' , '-', '*', '?', '[' ,']' ,'^', '$' }
@@ -77,7 +80,22 @@ function M.load(px_config)
     function _M.process()
         -- by user agent - pattern match
         local ua = ngx.var.http_user_agent
+        local host = ngx.var.host
         local whitelist_objects = px_ip.prepare_cidrs(_M.Whitelist['ip_addresses'])
+
+        if host then
+            -- By host name
+            local whitelist_hosts = _M.Whitelist['hosts']
+            if #whitelist_hosts > 0 then
+                for i = 1, #whitelist_hosts do
+                    if whitelist_hosts[i] == host then
+                        px_logger.debug("Whitelisted: Host strict match " .. whitelist_hosts[i])
+                        return true
+                    end
+                end
+            end
+        end
+
 
         if ua then
             --  By user agent - strict match

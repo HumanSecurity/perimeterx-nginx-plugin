@@ -79,6 +79,7 @@ _M.auth_token = 'PX_AUTH_TOKEN'
 -- _M.whitelist_ip_addresses = {}
 -- _M.whitelist_ua_full = {}
 -- _M.whitelist_ua_sub = {}
+-- _M.whitelist_hosts = {}
 
 -- ## Login Credentials extraction
 --_M.px_enable_login_creds_extraction = false
