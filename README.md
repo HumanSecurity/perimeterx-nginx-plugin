@@ -61,45 +61,44 @@
 
 ## [Enrichment](#enrichment)
 
- - [Data Enrichment](#data-enrichment)
- - [Log Enrichment](#log-enrichment)
+- [Data Enrichment](#data-enrichment)
+- [Log Enrichment](#log-enrichment)
 
 ## [Advanced Blocking Response](#advancedBlockingResponse)
 
 ## [Login Credentials Extraction](#loginCredentialsExtraction)
 
 - [Login Credentials Extraction Configuration](#loginCredentialsExtractionConfiguration)
- - [Enable Login Credentials Extraction](#px_enable_login_creds_extraction)
- - [Credentials JSON file](#px_login_creds_settings_filename)
- - [Credentials Intelligence Version](#px_credentials_intelligence_version)
- - [Additional s2s Activity Header](#px_additional_s2s_activity_header_enabled)
- - [Send Raw Username On Additional s2s Activity](#px_send_raw_username_on_additional_s2s_activity)
- - [Compromised Credentials Header Name](#px_compromised_credentials_header_name)
- - [Login Successful Reporting Method](#px_login_successful_reporting_method)
- - [Login Successful Header Name](#px_login_successful_header_name)
- - [Login Successful Header Value](#px_login_successful_header_value)
- - [Login Successful Status](#px_login_successful_status)
- - [Login Successful Custom Function](#custom_login_successful)
+- [Enable Login Credentials Extraction](#px_enable_login_creds_extraction)
+- [Credentials JSON file](#px_login_creds_settings_filename)
+- [Credentials Intelligence Version](#px_credentials_intelligence_version)
+- [Additional s2s Activity Header](#px_additional_s2s_activity_header_enabled)
+- [Send Raw Username On Additional s2s Activity](#px_send_raw_username_on_additional_s2s_activity)
+- [Compromised Credentials Header Name](#px_compromised_credentials_header_name)
+- [Login Successful Reporting Method](#px_login_successful_reporting_method)
+- [Login Successful Header Name](#px_login_successful_header_name)
+- [Login Successful Header Value](#px_login_successful_header_value)
+- [Login Successful Status](#px_login_successful_status)
+- [Login Successful Custom Function](#custom_login_successful)
 
 ## [HypeSale](#hypesale)
 
- - [HypeSale host](#hypesale_host)
+- [HypeSale host](#hypesale_host)
 
 ## [Sensitive GraphQL Operations](#graphql)
 
- - [Sensitive GraphQL Operation Types](#px_sensitive_graphql_operation_types)
- - [Sensitive GraphQL Operation Names](#px_sensitive_graphql_operation_names)
- - [Sensitive GraphQL routes](#px_sensitive_graphql_routes)
-
+- [Sensitive GraphQL Operation Types](#px_sensitive_graphql_operation_types)
+- [Sensitive GraphQL Operation Names](#px_sensitive_graphql_operation_names)
+- [Sensitive GraphQL routes](#px_sensitive_graphql_routes)
 
 ## [Appendix](#appendix)
 
- - [HTTP v2 Support](#http2)
- - [NGINX Plus](#nginxplus)
- - [NGINX Dynamic Modules](#dynamicmodules)
- - [Multiple App Support](#multipleapps)
- - [Setting Up A First Party Prefix](#setting_up_first_party_prefix)
- - [URI Delimiters](#uri_delimiters)
+- [HTTP v2 Support](#http2)
+- [NGINX Plus](#nginxplus)
+- [NGINX Dynamic Modules](#dynamicmodules)
+- [Multiple App Support](#multipleapps)
+- [Setting Up A First Party Prefix](#setting_up_first_party_prefix)
+- [URI Delimiters](#uri_delimiters)
 
 ## [Test Environment](#test_environment)
 
@@ -158,7 +157,7 @@ To upgrade to the latest Enforcer version, [re-install](#installation) the Enfor
 - [CentOS 7](#centos7)
 - Amazon Linux (AMI)
 
-#### <a name="supported_versions"></a>Supported NGINX Versions:
+#### <a name="supported_versions"></a>Supported NGINX Versions
 
 Recommended that you use the newest version of NGINX from the [Official NGINX](http://nginx.org/en/linux_packages.html) repo.
 
@@ -191,7 +190,7 @@ If an `add-apt-repository: command not found` error is returned, run:
 
 `sudo apt-get -y install software-properties-common`
 
-###### 3. Install the dependencies for Ubuntu 14.04:
+###### 3. Install the dependencies for Ubuntu 14.04
 
 ```sh
 sudo apt-get -y install build-essential
@@ -401,7 +400,7 @@ luarocks install lua-cjson
 luarocks install perimeterx-nginx-plugin
 ```
 
-###### 10. Optionally, if you are testing in a new environment you may need to configure the following:
+###### 10. Optionally, if you are testing in a new environment you may need to configure the following
 
 - Add the user "nginx"
 
@@ -437,6 +436,7 @@ luarocks install perimeterx-nginx-plugin
   ```
 
 - Enable and Start the NGINX Service
+
   ```sh
   sudo systemctl is-enabled nginx.service
   sudo systemctl start nginx.service
@@ -564,7 +564,7 @@ The following NGINX Configurations are required to support the PerimeterX NGINX 
 
 ### <a name="configuration"></a>PerimeterX Plugin Configuration
 
-#### <a name="perimterx_required_parameters"></a>Required Configuration:
+#### <a name="perimterx_required_parameters"></a>Required Configuration
 
 The following configurations are set in:
 
@@ -694,7 +694,8 @@ Several filters can be configured:
    _M.whitelist_uri_pattern = {},
    _M.whitelist_ip_addresses = {},
    _M.whitelist_ua_full = {},
-   _M.whitelist_ua_sub = {}
+   _M.whitelist_ua_sub = {},
+   _M.whitelist_hosts = {}
 ```
 
 | Filter Name                | Value                                                                | Filters Request To                                                         |
@@ -706,6 +707,7 @@ Several filters can be configured:
 | **whitelist_ip_addresses** | `{'192.168.99.1'}`                                                   | Filters requests coming from any of the listed IPs.                        |
 | **whitelist_ua_full**      | `{'Mozilla/5.0 (compatible; pingbot/2.0; http://www.pingdom.com/)'}` | Filters all requests matching this exact UA.                               |
 | **whitelist_ua_sub**       | `{'GoogleCloudMonitoring'}`                                          | Filters requests containing the provided string in their UA.               |
+| **whitelist_hosts**        | `{'www.example.com'}`                                                | Filters requests coming from the listed hosts.                             |
 
 ### <a name="sensitive-headers"></a> Filter Sensitive Headers
 
@@ -754,8 +756,8 @@ _M.custom_enabled_routes = function(uri)
 end
 
 ```
-See [examples/custom_enabled_routes.lua](/examples/custom_enabled_routes.lua) for a complete example of using `custom_enabled_routes`.
 
+See [examples/custom_enabled_routes.lua](/examples/custom_enabled_routes.lua) for a complete example of using `custom_enabled_routes`.
 
 ### <a name="monitored-routes"></a> Monitored Routes
 
@@ -783,6 +785,7 @@ _M.sensitive_routes_suffix = {'/download'}
 ```
 
 ### <a name="sensitive-routes-regex"></a> Sensitive Routes Regex List
+
 A list of route regular expressions (regex). When PerimeterX module matches the request URI with a regex from the list, the module creates a server-to-server call, even when the cookie is valid and the risk score is low.
 
 **Default:** Empty list
@@ -794,6 +797,7 @@ _M.sensitive_routes = {'^/login/[0-9]*user$'}
 ```
 
 ### <a name="custom-sensitive-routes"></a> Custom Sensitive Routes
+
 Allows you to define a function, which takes `uri` as an argument and returns `true` or `false`.
 Returning `true` means that PerimeterX module creates a server-to-server call, even when the cookie is valid and the risk score is low.
 
@@ -815,8 +819,8 @@ _M.custom_sensitive_routes = function(uri)
 end
 
 ```
-See [examples/custom_enabled_routes.lua](/examples/custom_enabled_routes.lua) for a complete example of using `custom_enabled_routes` (which is similar to `custom_sensitive_routes`).
 
+See [examples/custom_enabled_routes.lua](/examples/custom_enabled_routes.lua) for a complete example of using `custom_enabled_routes` (which is similar to `custom_sensitive_routes`).
 
 ### <a name="api-timeout"></a>API Timeout Milliseconds
 
@@ -857,7 +861,7 @@ Example:
 _M.custom_block_url = '/block.html'
 ```
 
-> Note: This URI is whitelisted automatically under `_M.Whitelist['uri_full'] ` to avoid infinite redirects.
+> Note: This URI is whitelisted automatically under `_M.Whitelist['uri_full']` to avoid infinite redirects.
 
 ### <a name="redirect_on_custom_url"></a> Redirect on Custom URL
 
@@ -1147,10 +1151,10 @@ For details on how to create a custom Captcha page, refer to the [documentation]
 
 This feature extracts credentials (hashed username and password) from requests and sends them to PerimeterX as additional info in risk / activity api calls. The feature can be toggled on and off. The settings are adjusted by modifying a Credentials JSON file.
 
-
 ### <a name="loginCredentialsExtractionConfiguration"></a> Login Credentials Extraction Configuration
 
 ### <a name="px_enable_login_creds_extraction"></a> Enable Login Credentials Extraction
+
 Enables Login Credentials Extraction
 
 **Default:** false (disabled)
@@ -1160,6 +1164,7 @@ _M.px_enable_login_creds_extraction = true
 ```
 
 ### <a name="px_login_creds_settings_filename"></a> Credentials JSON file
+
 Sets a full path to credentials JSON file
 
 **Default:** nil (none)
@@ -1182,6 +1187,7 @@ Example available in `examples/creds.json` file. It includes an array of JSON ob
 ```
 
 ### <a name="px_credentials_intelligence_version"></a> Credentials Intelligence Version
+
 Sets Credentials Intelligence protocol version
 
 **Default:** 'v1'
@@ -1191,6 +1197,7 @@ _M.px_credentials_intelligence_version = 'v1'
 ```
 
 ### <a name="px_additional_s2s_activity_header_enabled"></a> Additional s2s Activity Header
+
 Enables attaching additional s2s activity header ('px-additional-activity'), instead of sending Additional s2s activity to PX Collector.
 
 **Default:** false
@@ -1200,6 +1207,7 @@ _M.px_additional_s2s_activity_header_enabled = false
 ```
 
 ### <a name="px_send_raw_username_on_additional_s2s_activity"></a> Send Raw Username On Additional s2s Activity
+
 Enables sending a raw username on additional s2s activity (only when activities are sent to PX Collector)
 
 **Default:** false
@@ -1209,6 +1217,7 @@ _M.px_send_raw_username_on_additional_s2s_activity = false
 ```
 
 ### <a name="px_compromised_credentials_header_name"></a> Compromised Credentials Header Name
+
 Compromised credentials header name
 
 **Default:** 'x-px-compromised-credentials'
@@ -1218,6 +1227,7 @@ _M.px_compromised_credentials_header_name = 'x-px-compromised-credentials'
 ```
 
 ### <a name="px_login_successful_reporting_method"></a> Login Successful Reporting Method
+
 Sets login successful reporting method, could be one of the following values: 'none', 'header', 'status', 'custom'
 
 **Default:** 'none'
@@ -1227,6 +1237,7 @@ Sets login successful reporting method, could be one of the following values: 'n
 ```
 
 ### <a name="px_login_successful_header_name"></a> Login Successful Header Name
+
 Sets login successful header name
 
 **Default:** 'x-px-login-successful'
@@ -1236,6 +1247,7 @@ _M.px_login_successful_header_name = "x-px-login-successful"
 ```
 
 ### <a name="px_login_successful_header_value"></a> Login Successful Header Value
+
 Sets login successful header value
 
 **Default:** '1'
@@ -1245,6 +1257,7 @@ _M.px_login_successful_header_value = "1"
 ```
 
 ### <a name="px_login_successful_status"></a> Login Successful Status
+
 Sets login successful status(-es)
 
 **Default:** { 200 }
@@ -1254,6 +1267,7 @@ _M.px_login_successful_status = { 200 }
 ```
 
 ### <a name="custom_login_successful"></a> Login Successful Custom Function
+
 Sets an user defined function which should return `true` if login was successful.
 
 **Default:** nil
@@ -1272,26 +1286,28 @@ _M.custom_login_successful = function()
 end
 ```
 
-
 ## <a name="hypesale"></a> HypeSale
+
 To enforcer will server the hypesale page in cases where the custom_param["is_hype_sale"] set to true.
 If the request contains a cookie `_px3` with the `cpa` value so the hypesale will not be served but the enforcer will do risk_api to verify the request.
 
 ### <a name="hypesale_host"></a> HypeSale host
+
 Sets HypeSale host
 
-**Default:** 'https://captcha.px-cdn.net'
+**Default:** '<https://captcha.px-cdn.net>'
 
 ```
 _M.hypesale_host = 'https://captcha.px-cdn.net'
 ```
 
-
 ## <a name="graphql"></a> Sensitive GraphQL Operations
+
 For those using GraphQL endpoints, it is possible to trigger server-to-server risk calls on particular operation types or names. Like the sensitive routes feature, a request that contains an operation of the configured type or name will trigger a server call to PerimeterX servers every time that operation is performed.
 Note: This feature only applies to requests that contain the string `graphql` somewhere in the path name.
 
 ### <a name="px_sensitive_graphql_operation_types"></a> Sensitive GraphQL Operation Types
+
 Sets an operation type (e.g., query, mutation)
 
 **Default:** nil (none)
@@ -1301,6 +1317,7 @@ _M.px_sensitive_graphql_operation_types = {}
 ```
 
 ### <a name="px_sensitive_graphql_operation_names"></a> Sensitive GraphQL Operation Names
+
 Sets an operation name
 
 **Default:** nil (none)
@@ -1320,7 +1337,6 @@ Note: the list contains Lua Patterns, more here: [Understanding Lua Patterns](ht
 ```lua
 _M.px_graphql_routes = {"^/graphql/?$", "^/graphql/csrf$"}
 ```
-
 
 ## <a name="appendix"></a> Appendix
 
@@ -1413,9 +1429,9 @@ PerimeterX processes URI paths with general- and sub-delimiters according to RFC
 
 PerimeterX Nginx Lua Enforcer repository contains Dockerfile used to create a test docker image.
 In order to build an image, the following files must be present in the project's "example" directory:
-* examples/pxconfig.lua - Enforcer configuration (`px_appId`, `cookie_secret` and `auth_token` parameters are required and must be set).
-* examples/nginx.conf - Nginx configuration
-* examples/creds.json - Credential Intelligence configuration (optional)
+- examples/pxconfig.lua - Enforcer configuration (`px_appId`, `cookie_secret` and `auth_token` parameters are required and must be set).
+- examples/nginx.conf - Nginx configuration
+- examples/creds.json - Credential Intelligence configuration (optional)
 
 When these files are present and adjusted, the following command could be executed from the project's root directory to run a test docker container: `./examples/run_docker.sh`
 Docker container will run and Nginx will listen on 8080 port.
@@ -1443,4 +1459,5 @@ The following steps are welcome when contributing to our project.
   2. Run the tests using the following command: make docker-test.
 
 - ### Pull Request
+
   Once you have completed the process, create a pull request. Provide a complete and thorough description explaining the changes. Remember, the code has to be read by our maintainers, so keep it simple, smart and accurate.
