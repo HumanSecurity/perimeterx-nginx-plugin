@@ -1,0 +1,53 @@
+FROM centos:7
+
+USER root
+
+RUN sed -i s/mirror.centos.org/vault.centos.org/g /etc/yum.repos.d/*.repo
+RUN sed -i s/^#.*baseurl=http/baseurl=http/g /etc/yum.repos.d/*.repo
+RUN sed -i s/^mirrorlist=http/#mirrorlist=http/g /etc/yum.repos.d/*.repo
+
+RUN yum update -y
+RUN yum install -y epel-release
+RUN yum update -y
+RUN yum install -y wget make pkgconfig ca-certificates build-essential gcc lua-devel m4
+
+RUN rpm --import https://openresty.org/package/pubkey.gpg && wget https://openresty.org/package/centos/openresty2.repo -P /etc/yum.repos.d/
+RUN yum update -y
+RUN yum install -y openresty compat-lua compat-lua-devel compat-lua-libs unzip
+
+RUN  cd /tmp/ && wget https://luarocks.github.io/luarocks/releases/luarocks-3.12.2.tar.gz && \
+    tar -xzf luarocks-3.12.2.tar.gz && \
+    cd luarocks-3.12.2 && \
+    ./configure --with-lua-include=/usr/include && \
+    make install
+
+
+RUN cd /tmp/ && \
+    wget https://ftp.gnu.org/gnu/nettle/nettle-3.10.tar.gz && \
+    tar -xzf nettle-3.10.tar.gz && \
+    cd nettle-3.10 && \
+    ./configure --prefix=/usr  && \
+    make install
+
+
+RUN luarocks install --lua-version 5.1 lustache
+RUN luarocks install --lua-version 5.1 luasocket
+RUN luarocks install --lua-version 5.1 lua-resty-http
+RUN luarocks install --lua-version 5.1 luacheck
+RUN luarocks install --lua-version 5.1 lua-resty-nettle
+
+
+#RUN luarocks install --lua-version 5.1 perimeterx-nginx-plugin
+
+RUN mkdir -p /tmp/px
+COPY Makefile /tmp/px/
+COPY lib /tmp/px/lib
+COPY t /tmp/t
+RUN make -C /tmp/px install
+
+
+COPY examples/nginx.conf /usr/local/openresty/nginx/conf/nginx.conf
+COPY examples/creds.json /tmp/creds.json
+COPY examples/pxconfig.lua /usr/local/lib/lua/px/
+
+CMD ["/usr/local/openresty/nginx/sbin/nginx", "-g", "daemon off;"]
