@@ -102,6 +102,8 @@ function M.load(px_config)
         risk.additional.module_version = px_constants.MODULE_VERSION
         risk.additional.cookie_origin = ngx.ctx.px_cookie_origin
 
+        risk.additional.is_sensitive_route = ngx.ctx.is_sensitive_route or false
+
         if px_config.block_enabled and not ngx.ctx.monitored_route then
             risk.additional.risk_mode = "active_blocking"
         else
@@ -154,6 +156,10 @@ function M.load(px_config)
 
         if data.drc then
             ngx.ctx.drc = tonumber(data.drc)
+        end
+
+        if data.additional_risk_info then
+            ngx.ctx.additional_risk_info = data.additional_risk_info
         end
 
         if data.data_enrichment and type(data.data_enrichment) == "table" then
