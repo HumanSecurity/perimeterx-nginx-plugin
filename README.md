@@ -2,7 +2,7 @@
 
 # [PerimeterX](http://www.perimeterx.com) NGINX Lua Plugin
 
-> Latest stable version: [v7.3.5](https://luarocks.org/modules/bendpx/perimeterx-nginx-plugin/7.3.5-1)
+> Latest stable version: [v7.3.6](https://luarocks.org/modules/bendpx/perimeterx-nginx-plugin/7.3.6-1)
 
 ## [Introduction](#introduction)
 
@@ -214,12 +214,12 @@ sudo make clean && sudo make build && sudo make install
 cd ~
 ```
 
-###### 5. Download and install Nettle 3.3 from source
+###### 5. Download and install Nettle 3.10 from source
 
 ```sh
-wget https://ftp.gnu.org/gnu/nettle/nettle-3.3.tar.gz
-tar -xzf nettle-3.3.tar.gz
-cd nettle-3.3
+wget https://ftp.gnu.org/gnu/nettle/nettle-3.10.tar.gz
+tar -xzf nettle-3.10.tar.gz
+cd nettle-3.10
 ./configure
 sudo make clean && sudo make install
 cd ~
@@ -314,19 +314,19 @@ cd /tmp/nginx
 ###### 3. Download all required source files
 
 ```sh
-wget http://luarocks.github.io/luarocks/releases/luarocks-3.5.0.tar.gz
+wget http://luarocks.github.io/luarocks/releases/luarocks-3.12.2.tar.gz
 wget http://nginx.org/download/nginx-1.18.0.tar.gz
 wget -O luajit-2.0.tar.gz https://github.com/LuaJIT/LuaJIT/archive/refs/tags/v2.0.5.tar.gz
 wget -O nginx_devel_kit.tar.gz https://github.com/simpl/ngx_devel_kit/archive/v0.3.1.tar.gz
 wget -O nginx_lua_module.tar.gz https://github.com/openresty/lua-nginx-module/archive/v0.10.15.tar.gz
-wget https://ftp.gnu.org/gnu/nettle/nettle-3.6.tar.gz
+wget https://ftp.gnu.org/gnu/nettle/nettle-3.10.tar.gz
 ```
 
 ###### 4. Unpackage all source files
 
 ```sh
-tar -xzf luarocks-3.5.0.tar.gz
-tar -xzf nettle-3.6.tar.gz
+tar -xzf luarocks-3.12.2.tar.gz
+tar -xzf nettle-3.10.tar.gz
 tar -xvf luajit-2.0.tar.gz
 tar -xvf nginx-1.18.0.tar.gz
 tar -xvf nginx_devel_kit.tar.gz
@@ -336,7 +336,7 @@ tar -xvf nginx_lua_module.tar.gz
 ###### 5. Install luarocks from source
 
 ```sh
-cd /tmp/nginx/luarocks-3.5.0
+cd /tmp/nginx/luarocks-3.12.2
 ./configure
 make
 make install
@@ -345,7 +345,7 @@ make install
 ###### 6. Install Nettle from source
 
 ```sh
-cd /tmp/nginx/nettle-3.6
+cd /tmp/nginx/nettle-3.10
 ./configure --prefix=/usr --disable-static
 make
 make check

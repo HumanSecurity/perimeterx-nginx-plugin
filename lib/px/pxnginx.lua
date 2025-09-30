@@ -337,6 +337,9 @@ function M.application(px_configuration_table)
 
     px_payload:load(px_config)
     local px_cookie = px_payload:get_payload()
+
+    ngx.ctx.is_sensitive_route = px_payload:is_sensitive_route()
+
     local success = false
     local result
     if px_cookie ~= nil then
