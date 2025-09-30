@@ -155,6 +155,12 @@ function M.load(px_config)
             details['simulated_block'] = not px_config.block_enabled or ngx.ctx.monitored_route == true
         end
 
+        if ngx.ctx.additional_risk_info then
+            details['additional_risk_info'] = ngx.ctx.additional_risk_info
+        end
+
+        details['is_sensitive_route'] = ngx.ctx.is_sensitive_route or false
+
         pxdata['details'] = details
 
         buffer.addEvent(pxdata)
