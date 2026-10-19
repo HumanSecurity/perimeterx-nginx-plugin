@@ -2,7 +2,7 @@
 
 # [PerimeterX](http://www.perimeterx.com) NGINX Lua Plugin
 
-> Latest stable version: [v7.3.6](https://luarocks.org/modules/bendpx/perimeterx-nginx-plugin/7.3.6-1)
+> Latest stable version: [v7.3.7](https://luarocks.org/modules/bendpx/perimeterx-nginx-plugin/7.3.7-1)
 
 ## [Introduction](#introduction)
 
@@ -126,7 +126,7 @@ As of version 4.x the config builder was added. The config builder adds default 
     }
 ```
 
-2. Modify `access_by_lua_block`
+1. Modify `access_by_lua_block`
 
 ```lua
     access_by_lua_block {
@@ -135,7 +135,7 @@ As of version 4.x the config builder was added. The config builder adds default 
     }
 ```
 
-3. Modify `header_filter_by_lua_block`
+1. Modify `header_filter_by_lua_block`
 
 ```lua
     header_filter_by_lua_block {
