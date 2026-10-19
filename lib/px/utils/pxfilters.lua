@@ -76,6 +76,27 @@ function M.load(px_config)
         return pattern
     end
 
+    -- Strip matrix parameters from the last path segment only.
+    -- /assets/style.css;jsessionid=abc -> /assets/style.css
+    local function strip_matrix_params(path)
+        local last_slash = 0
+        local from = 1
+        while true do
+            local i = string_find(path, "/", from, true)
+            if not i then
+                break
+            end
+            last_slash = i
+            from = i + 1
+        end
+        local segment = string_sub(path, last_slash + 1)
+        local idx = string_find(segment, ";", 1, true)
+        if idx then
+            segment = string_sub(segment, 1, idx - 1)
+        end
+        return string_sub(path, 1, last_slash) .. segment
+    end
+
     -- Process the whitelist
     function _M.process()
         -- by user agent - pattern match
@@ -154,8 +175,9 @@ function M.load(px_config)
         end
 
         local wluris = _M.Whitelist['uri_suffixes']
+        local suffix_uri = strip_matrix_params(uri)
         for i = 1, #wluris do
-            if string_sub(uri, -string_len(wluris[i])) == wluris[i] then
+            if string_sub(suffix_uri, -string_len(wluris[i])) == wluris[i] then
                 px_logger.debug("Whitelisted: uri_suffix. " .. wluris[i])
                 return true
             end
