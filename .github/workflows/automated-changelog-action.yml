@@ -70,6 +70,7 @@ jobs:
           # App ID and private key PX docs app
           app-id: ${{ vars.HS_DOCS_UPDATER_APP_ID }}
           private-key: ${{ secrets.HS_DOCS_UPDATER_APP_PRIVATE_KEY }}
+          owner: PerimeterX
           repositories: public-docs
 
       - name: Clone public-docs
